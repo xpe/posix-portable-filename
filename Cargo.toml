@@ -1,0 +1,25 @@
+[package]
+name = "posix-portable-filename"
+version = "0.1.0"
+edition = "2024"
+authors = ["David James <07wz18rk@anonaddy.me>"]
+description = "A validated newtype for POSIX portable filenames (A-Za-z0-9._-)"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/xpe/posix-portable-filename"
+documentation = "https://docs.rs/posix-portable-filename"
+readme = "README.md"
+keywords = ["posix", "filename", "validation", "portable", "newtype"]
+categories = ["filesystem", "parsing"]
+rust-version = "1.85"
+
+[dependencies]
+thiserror = "2"
+serde = { version = "1", features = ["derive"], optional = true }
+
+[features]
+default = []
+serde = ["dep:serde"]
+
+[dev-dependencies]
+doc-comment = "0.3"
+serde_json = "1"

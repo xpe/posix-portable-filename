@@ -1,0 +1,19 @@
+[package]
+name = "posix-portable-filename-fuzz"
+version = "0.1.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+posix-portable-filename = { path = ".." }
+
+[[bin]]
+name = "fuzz_new"
+path = "fuzz_targets/fuzz_new.rs"
+test = false
+doc = false
+bench = false
