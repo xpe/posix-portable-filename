@@ -5,15 +5,20 @@ A validated type for POSIX portable filenames. It uses the [newtype idiom].
 [newtype idiom]: https://doc.rust-lang.org/rust-by-example/generics/new_types.html
 
 ## The Problem
-Unix filesystems technically allow almost any byte sequence as a filename. This permissiveness often causes problems:
 
-- `*`, `?`, `[`, `]` — shell glob characters
-- `-rf` — interpreted as command-line flags
-- Spaces, quotes, backticks — shell escaping nightmares
-- Non-UTF-8 bytes — encoding hell
+Unix filesystems technically allow almost any byte sequence as a filename. David Wheeler [explains the situation well](https://dwheeler.com/essays/fixing-unix-linux-filenames.html):
 
-Most other Rust libraries *sanitize* filenames by transforming bad characters into valid ones. This crate takes a different; it only allows construction of its core type (`PortableFilename`) for a POSIX portable filename.
+> This lack of limitations is flexible, but it also creates a legion of unnecessary problems. In particular, this lack of limitations makes it unnecessarily difficult to write correct programs (enabling many security flaws). It also makes it impossible to consistently and accurately display filenames, causes portability problems, and confuses users.
 
+Some examples of what can go wrong:
+
+- A filename like `-rf` gets interpreted as command-line flags
+- Spaces, quotes, and backticks create shell escaping nightmares
+- Control characters (including newline and tab) are permitted
+- No encoding is enforced, so filenames may not be valid UTF-8
+- Characters like `*`, `?`, `[`, `]` double as shell glob metacharacters
+
+Most other Rust libraries _sanitize_ filenames by transforming bad characters into valid ones. This crate takes a different approach; it only allows construction of its core type (`PortableFilename`) for a POSIX portable filename.
 
 ## Usage
 
