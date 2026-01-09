@@ -78,16 +78,15 @@ posix-portable-filename = { version = "0.1", features = ["serde"] }
 [feature]: https://doc.rust-lang.org/cargo/reference/features.html
 
 ## Correctness
-This library contains no unsafe code (`#![forbid(unsafe_code)]`) and has a small, auditable validation path.
+
+This library contains no unsafe code (`#![forbid(unsafe_code)]`) and has a small, auditable validation path. The validation logic is ~30 lines of straightforward character checking; see `PortableFilename::new()`.
 
 Testing includes:
+
 - _Unit tests_ covering valid inputs, all rejection cases, boundary conditions (empty, max length), and trait implementations
-- _Fuzz testing*_ with over 1 billion iterations to coverage saturation, with no crashes or panics
+- _Fuzz testing\*_ with over 1 billion iterations to coverage saturation, with no crashes or panics
 
-The validation logic is ~30 lines of straightforward character checking; see `PortableFilename::new()`.
-
-The fuzz harness feeds arbitrary byte sequences to the parser; coverage saturation means all reachable code paths have been exercised.
-
+\* The fuzz harness feeds arbitrary byte sequences to the parser; coverage saturation means all reachable code paths have been exercised.
 
 ## Fuzz Testing
 
