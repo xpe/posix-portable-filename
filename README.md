@@ -94,5 +94,5 @@ Dual-licensed under MIT or Apache 2.0, at your option.
 
 ## References
 - [POSIX.1-2008 §3.282 — Portable Filename Character Set](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_282)
-- [POSIX.1-2008 §4.7 — Filename Portability](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_07)
+- [POSIX.1-2008 §4.7 — Filename Portability](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_08)
 - [David Wheeler — Fixing Unix/Linux/POSIX Filenames](https://dwheeler.com/essays/fixing-unix-linux-filenames.html)
