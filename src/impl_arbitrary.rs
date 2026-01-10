@@ -24,7 +24,7 @@ impl<'a> Arbitrary<'a> for PortableFilename {
         let no_hyphen_or_period: &[u8] = &CHARS[1..N - 1];
 
         let len: usize = u.int_in_range(1..=MAX_LEN)?;
-        let mut s = String::with_capacity(MAX_LEN);
+        let mut s = String::with_capacity(len);
 
         if len == 1 {
             s.push(*u.choose(no_hyphen_or_period)? as char);
@@ -38,11 +38,15 @@ impl<'a> Arbitrary<'a> for PortableFilename {
                     s.push(*u.choose(CHARS)? as char);
                 }
             } else {
-                for _ in 2..len {
+                for _ in 2..=len {
                     s.push(*u.choose(CHARS)? as char);
                 }
             }
         }
+
+        #[cfg(test)]
+        assert_eq!(len, s.len());
+
         Ok(PortableFilename::new(s).expect("valid filename"))
     }
 
@@ -63,6 +67,7 @@ mod tests {
             let _filename = PortableFilename::arbitrary(u)?;
             // If constructed, the filename is valid.
             Ok(())
-        });
+        })
+        .budget_ms(500);
     }
 }
