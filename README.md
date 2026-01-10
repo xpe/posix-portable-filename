@@ -63,7 +63,26 @@ Additionally:
 
 ## Features
 
-This crate provides one optional [feature].
+This crate provides two optional [features]: `arbitrary` and `serde`.
+
+[features]: https://doc.rust-lang.org/cargo/reference/features.html
+
+### `arbitrary`
+
+Implements [`Arbitrary`](https://docs.rs/arbitrary) for `PortableFilename`, enabling structure-aware fuzzing with [`cargo-fuzz`](https://github.com/rust-fuzz/cargo-fuzz). Downstream crates can fuzz code that handles filenames without wasting cycles on invalid inputs.
+
+```toml
+# Cargo.toml
+[dependencies]
+posix-portable-filename = { version = "0.2", features = ["arbitrary"] }
+```
+
+```rust,ignore
+// fuzz/fuzz_targets/my_target.rs
+libfuzzer_sys::fuzz_target!(|filename: PortableFilename| {
+    my_function_that_takes_filename(filename);
+});
+```
 
 ### `serde`
 
@@ -72,10 +91,16 @@ Serialize/deserialize with validation on deserialization
 ```toml
 # Cargo.toml
 [dependencies]
-posix-portable-filename = { version = "0.1", features = ["serde"] }
+posix-portable-filename = { version = "0.2", features = ["serde"] }
 ```
 
-[feature]: https://doc.rust-lang.org/cargo/reference/features.html
+## Running Unit Tests
+
+Since this crates has optional features, use:
+
+```sh
+cargo test --all-features
+```
 
 ## Correctness
 
