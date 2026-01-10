@@ -1,6 +1,11 @@
+//! Serde serialization and deserialization with validation.
+//!
+//! Deserialization fails if the string is not a valid portable filename.
+
 use super::PortableFilename;
 use serde::{Deserialize, Deserializer, Serialize, Serializer, de};
 
+#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
 impl Serialize for PortableFilename {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -10,6 +15,7 @@ impl Serialize for PortableFilename {
     }
 }
 
+#[cfg_attr(docsrs, doc(cfg(feature = "serde")))]
 impl<'de> Deserialize<'de> for PortableFilename {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

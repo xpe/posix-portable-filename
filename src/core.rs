@@ -155,6 +155,7 @@ impl TryFrom<String> for PortableFilename {
     }
 }
 
+/// Implements conversion from a string slice via the `TryFrom` trait.
 impl<'a> TryFrom<&'a str> for PortableFilename {
     type Error = InvalidFilename;
 

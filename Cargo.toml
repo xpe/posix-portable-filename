@@ -26,6 +26,10 @@ default = []
 serde = ["dep:serde"]
 arbitrary = ["dep:arbitrary"]
 
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
 [dev-dependencies]
 arbtest = "0.3"
 doc-comment = "0.3"

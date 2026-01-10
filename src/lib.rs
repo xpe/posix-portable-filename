@@ -1,3 +1,5 @@
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 //! # posix-portable-filename
 //!
 //! A validated newtype for POSIX portable filenames.
@@ -47,15 +49,28 @@
 //!
 //! ```toml
 //! [dependencies]
-//! posix-portable-filename = { version = "0.1", features = ["serde"] }
+//! posix-portable-filename = { version = "0.2", features = ["serde"] }
 //! ```
 //!
 //! Deserialization will fail if the string is not a valid portable filename.
 //!
+//! ## Arbitrary Support
+//!
+//! Enable the `arbitrary` feature for structure-aware fuzzing with
+//! [`cargo-fuzz`](https://github.com/rust-fuzz/cargo-fuzz):
+//!
+//! ```toml
+//! [dependencies]
+//! posix-portable-filename = { version = "0.2", features = ["arbitrary"] }
+//! ```
+//!
+//! The `Arbitrary` implementation generates only valid portable filenames,
+//! so fuzz tests won't waste cycles on invalid inputs.
+//!
 //! ## References
 //!
 //! - [POSIX.1-2008 Base Definitions, Section 3.282](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_282)
-//! - [POSIX.1-2008 Base Definitions, Section 4.7](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_08)
+//! - [POSIX.1-2008 Base Definitions, Section 4.8](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_08)
 
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]

@@ -1,4 +1,6 @@
-//! `Arbitrary` implementation for fuzz testing.
+//! `Arbitrary` implementation for structure-aware fuzzing.
+//!
+//! Generates only valid portable filenames, avoiding wasted fuzzing cycles.
 
 use crate::PortableFilename;
 
@@ -14,6 +16,7 @@ const CHARS: &[u8] = b".ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123
 
 const N: usize = CHARS.len();
 
+#[cfg_attr(docsrs, doc(cfg(feature = "arbitrary")))]
 impl<'a> Arbitrary<'a> for PortableFilename {
     fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
         let no_hyphen: &[u8] = &CHARS[..N - 1];

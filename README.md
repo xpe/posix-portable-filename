@@ -124,6 +124,22 @@ cargo +nightly fuzz run fuzz_new
 Note: "rwsv" stands for "read, write, seek, validate" -- the methods exercised by the fuzzer.
 [cargo fuzz]: https://github.com/rust-fuzz/cargo-fuzz
 
+## Building Documentation
+
+If you want to have local documentation that shows feature badges; e.g.:
+
+> Available on crate feature serde only.
+
+Then use this magic incantation:
+
+```sh
+RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --open --all-features --no-deps
+```
+
+Read more about this at [thread #64577 on Rust programming language users forum][64577].
+
+[64577]: https://users.rust-lang.org/t/how-to-document-optional-features-in-api-docs/64577
+
 ## License
 
 Dual-licensed under MIT or Apache 2.0, at your option.
