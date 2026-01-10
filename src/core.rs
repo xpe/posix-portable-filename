@@ -11,6 +11,7 @@ pub struct InvalidFilename {
 
 impl InvalidFilename {
     /// Returns the reason the filename was rejected.
+    #[must_use]
     pub fn reason(&self) -> &'static str {
         self.reason
     }
@@ -82,12 +83,14 @@ impl PortableFilename {
 
     /// Returns the filename as a string slice.
     #[inline]
+    #[must_use]
     pub fn as_str(&self) -> &str {
         &self.0
     }
 
     /// Consumes self and returns the inner `String`.
     #[inline]
+    #[must_use]
     pub fn into_inner(self) -> String {
         self.0
     }
