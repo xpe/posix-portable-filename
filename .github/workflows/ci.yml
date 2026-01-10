@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "ci-testing"]
+  pull_request:
+    branches: ["main"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  # NOTE: No rust-toolchain.toml means we use whatever stable is on the runner.
+  # Pros: Less maintenance, automatic compiler improvements
+  # Cons: New Clippy lints can break CI unexpectedly, less reproducibility
+  # Consider pinning if you need MSRV guarantees or reproducible builds.
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    # NOTE: Consider adding Swatinem/rust-cache@v2 here if dependency tree is large
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check formatting
+        run: cargo fmt --check
+      - name: Clippy
+        run: cargo clippy --all-features -- -D warnings -D clippy::pedantic
+
+  build:
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: Swatinem/rust-cache@v2
+      - name: Build
+        run: cargo build --all-features --verbose
+      - name: Run tests
+        run: cargo test --all-features --verbose
+
+  # TODO: Consider adding cargo-audit (security vulnerabilities) and/or
+  # cargo-deny (license/duplicate dep checking) as separate jobs
