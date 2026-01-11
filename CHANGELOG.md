@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-01-10
+
+### Added
+
+- GitHub Actions CI workflow for automated testing
+
+### Changed
+
+- Added `#[must_use]` attribute to methods returning values
+- Simplified package description and keywords in Cargo.toml
+
 ## [0.2.2] - 2026-01-10
 
 ### Fixed
